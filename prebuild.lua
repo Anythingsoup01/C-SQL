@@ -8,10 +8,9 @@ Project = {
   language = "C++",
   dialect = "23",
 
-  pch = "csqlpch.h",
 
   files = {
-    "src/*.c",
+    "src/*.cpp",
   },
 
   includedirs = {
@@ -30,7 +29,7 @@ Project = {
   dialect = "23",
 
   files = {
-    "test/src/*.c",
+    "test/src/*.cpp",
   },
 
   includedirs = {
