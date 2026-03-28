@@ -1,0 +1,6 @@
+# Directories
+build/
+.config/
+
+# Binaries
+prebuild

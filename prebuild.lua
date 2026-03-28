@@ -5,7 +5,7 @@ Workspace = {
 Project = {
   name = "csql",
   kind = "StaticLib",
-  language = "C",
+  language = "C++",
   dialect = "23",
 
   pch = "csqlpch.h",
@@ -26,7 +26,7 @@ Project = {
 Project = {
   name = "test",
   kind = "ConsoleApp",
-  language = "C",
+  language = "C++",
   dialect = "23",
 
   files = {
