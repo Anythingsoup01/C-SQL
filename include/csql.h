@@ -2,27 +2,28 @@
 
 #include "base_db.h"
 
-#include <unordered_map>
-#include <string>
+#include "types/Database.h"
+
+#include "internal/string/string.h"
 
 namespace anythingsoup {
 
-struct Database {
-  std::string Name;
-  std::unordered_map<std::string, std::string> m_Table;
-};
+
 
 //
 //  The standard Database Handler Class of the library.
 //
 class csql : public base_db {
 public:
-  csql() = default;
+  csql();
   virtual ~csql();
 
   virtual bool AddDatabase(const char *filePath) override;
+
+  Database GetDatabase(const char *dbName) { if (!m_DatabaseMap.contains(dbName)) return {}; return m_DatabaseMap.at(dbName); }
 private:
   std::unordered_map<std::string, Database> m_DatabaseMap;
+  StringStorage m_StringStorage;
 };
 
 }
