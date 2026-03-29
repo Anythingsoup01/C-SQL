@@ -11,7 +11,6 @@ set_property(TARGET csql PROPERTY CXX_STANDARD 23)
 
 target_include_directories(csql PRIVATE
     "include/"
-    "internal/"
 )
 
 target_link_libraries(csql

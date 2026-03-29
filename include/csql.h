@@ -3,8 +3,8 @@
 #include "base_db.h"
 
 #include "types/Database.h"
-
-#include "internal/string/string.h"
+#include "internal/string.h"
+#include "internal/value.h"
 
 namespace anythingsoup {
 
@@ -24,6 +24,7 @@ public:
 private:
   std::unordered_map<std::string, Database> m_DatabaseMap;
   StringStorage m_StringStorage;
+  ManagedValueArena m_ValueStorage;
 };
 
 }

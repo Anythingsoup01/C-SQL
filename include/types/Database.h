@@ -1,13 +1,14 @@
 #pragma once
 
 #include <unordered_map>
-#include <string>
 #include <vector>
-#include <memory.h>
+
+#include "internal/string.h"
+#include <filesystem>
 
 namespace anythingsoup {
 
-enum class ColumnType {
+enum class ColumnType : uint8_t {
   _NULL = 0,
   INTEGER,
   FLOAT,
@@ -19,19 +20,20 @@ ColumnType sqlite3_type_to_column_type(int type);
 
 struct Column {
 public:
-  template <typename T>
-  Column(const char *name, T value, ColumnType type, size_t size);
+  Column(const ManagedString &name, void * value, ColumnType type);
 
   template <typename T>
   T GetData() {
-    return *(T*)Data;
+    if (Type == ColumnType::TEXT || Type == ColumnType::BLOB) {
+      return reinterpret_cast<T>(Data); 
+    }
+    return *reinterpret_cast<T*>(Data);
   }
 
 private:
-  std::string Name;
+  void *Data;
+  ManagedString Name;
   ColumnType Type;
-  char Data[128];
-  size_t Size;
 };
 
 struct Row {
@@ -42,7 +44,8 @@ struct Row {
 using Table = std::vector<Row>;
 
 struct Database {
-  std::string Name;
+  ManagedString Name;
+  std::filesystem::path Path;
   std::unordered_map<std::string, Table> Tables;
 };
 
